@@ -1,29 +1,17 @@
-function addingEventListener() {
-  // Select the element
-  const myButton = document.getElementById('myButton');
+require ( './helpers.js' );
 
-  // Define the event listener function
-  function handleClick() {
-    console.log('Button clicked!');
-  }
+const sinon = require('sinon');
 
-  // Bind the event listener to the element
-  myButton.addEventListener('click', handleClick);
-}
+describe("index.js", () => {
+  let input;
 
-// test.js
-describe("addingEventListener()", () => {
-  it("binds an event listener", () => {
-    // Spy on the addEventListener method
-    const addEventListenerSpy = sinon.spy(EventTarget.prototype, 'addEventListener');
+  beforeEach(function() {
+    input = document.getElementById('button');
+    sinon.spy(input, 'addEventListener');
+  })
 
-    // Call the addingEventListener function
+  it("binds an event listener in addingEventListener()", () => {
     addingEventListener();
-
-    // Expect the addEventListener method to have been called
-    expect(addEventListenerSpy.called).to.be.true;
-
-    // Restore the original method
-    addEventListenerSpy.restore();
-  });
-});
+    expect(input.addEventListener.called).to.be.true;
+  })
+})
